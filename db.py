@@ -2,13 +2,12 @@
 
 import json
 import os
+import argparse
 
 # JSON file to store the inventory data
-FILE_NAME = "inventory.json"
-
 
 class InventoryManager:
-    def __init__(self, file_name):
+    def __init__(self, file_name="inventory.json"):
         self.file_name = file_name
         self.inventory = self.load_inventory()
 
@@ -162,7 +161,13 @@ def display_menu():
 
 def main():
     """Main function to handle the menu and user choices."""
-    manager = InventoryManager(FILE_NAME)
+
+    parser = argparse.ArgumentParser(description="Inventory Management System")
+    parser.add_argument("-f", "--file", default="inventory.json", help="Path to the JSON inventory file")
+    args = parser.parse_args()
+
+    file_name = args.file
+    manager = InventoryManager(file_name)
 
     while True:
         display_menu()
